@@ -12,12 +12,13 @@ interface CardProps {
   children: ReactElement[];
 }
 
-export const Card: FC<CardProps> = 
+export const Card: FC<CardProps> =
   ({
     width,
     height,
     variant,
     children,
+
   }) => {
 
   return (
