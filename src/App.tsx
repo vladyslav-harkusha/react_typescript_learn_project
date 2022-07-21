@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, CardVariant } from "./components/Card";
 import { UserItem } from "./components/UserItem";
 import { TodoItem } from "./components/TodoItem";
+import { EventsExample } from "./components/EventsExample";
 import { List } from "./components/List";
 import { ITodo, IUser } from "./types/types";
 
@@ -37,6 +38,8 @@ export const App = () => {
 
   return (
     <div>
+      <EventsExample />
+
       <Card 
         variant={CardVariant.outlined}
         width="200px"
