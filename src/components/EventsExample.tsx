@@ -1,20 +1,17 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef } from 'react';
 
-interface EventsExampleProps {
-
-};
-
-export const EventsExample: FC<EventsExampleProps> = () => {
+export const EventsExample: FC = () => {
   const [value, setValue] = useState<string>('');
   const [isDrag, setIsDrag] = useState<boolean>(false);
-  
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
   const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    alert(value)
+    alert(`неуправляемый инпут-->${inputRef.current?.value},  управляемый инпут-->${value}`);
   };
 
   const dragHandler = (event: React.DragEvent<HTMLDivElement>) => {
@@ -40,11 +37,9 @@ export const EventsExample: FC<EventsExampleProps> = () => {
 
   return (
     <div>
-      <input
-        type="text"
-        value={value}
-        onChange={changeHandler}
-      />
+      <input type="text" ref={inputRef} style={{display: "block"}} placeholder="Неуправляемый инпут(useRef)"/>
+
+      <input type="text" value={value} onChange={changeHandler} placeholder="Управляемый инпут"/>
 
       <button onClick={clickHandler}>Alert</button>
 
