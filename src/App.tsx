@@ -1,63 +1,36 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { Card, CardVariant } from "./components/Card";
-import { UserItem } from "./components/UserItem";
-import { TodoItem } from "./components/TodoItem";
 import { EventsExample } from "./components/EventsExample";
-import { List } from "./components/List";
-import { ITodo, IUser } from "./types/types";
+import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import { UsersPage } from "./components/UsersPage";
+import { TodosPage } from "./components/TodosPage";
+import { UserItemPage } from "./components/UserItemPage";
+import { UserTodoPage } from "./components/UserTodoPage";
 
 export const App = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
-  const [todos, setTodos] = useState<ITodo[]>([]);
-
-  useEffect(() => {
-    fetchUsers();
-    fetchTodos();
-  }, []);
-
-  async function fetchUsers() {
-    try {
-      const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
-
-      setUsers(response.data);
-    } catch (error) {
-      alert(error)
-    }
-  }
-
-  async function fetchTodos() {
-    try {
-      const response = await axios.get<ITodo[]>('https://jsonplaceholder.typicode.com/todos?_limit=10');
-
-      setTodos(response.data);
-    } catch (error) {
-      alert(error)
-    }
-  }
-
   return (
-    <div>
-      <EventsExample />
+    <BrowserRouter>
+        <div style={{display: "flex", gap: "15px", marginBottom: "20px"}}>
+          <NavLink to="/events">Примеры ивентов</NavLink>
+          <NavLink to="/users">Список пользователей</NavLink>
+          <NavLink to="/todos">Список дел</NavLink>
+        </div>
 
-      <Card 
-        variant={CardVariant.outlined}
-        width="200px"
-        height="200px"
-      >
-        <button>Кнопка</button>
-        <p>Vladys</p>
-      </Card>
+        <Card
+          variant={CardVariant.outlined}
+          width="200px"
+          height="100px"
+        >
+          <button>Кнопка</button>
+          <p>TypeScript with React Learning</p>
+        </Card>
 
-      <List 
-        items={users} 
-        renderItem={(user: IUser) => <UserItem user={user} key={user.id} />}
-      />
-
-      <List 
-        items={todos} 
-        renderItem={(todo: ITodo) => <TodoItem todo={todo} key={todo.id} />}
-      />
-    </div>
+        <Routes>
+          <Route path="/events" element={<EventsExample />} />
+          <Route path="/users" element={<UsersPage />} />
+          <Route path="/users/:id" element={<UserItemPage />} />
+          <Route path="/todos" element={<TodosPage />} />
+          <Route path="/todos/:id" element={<UserTodoPage />} />
+        </Routes>
+    </BrowserRouter>
   )
 };

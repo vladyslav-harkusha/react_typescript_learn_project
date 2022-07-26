@@ -28,6 +28,7 @@ export const Card: FC<CardProps> =
         height,
         border: variant === CardVariant.outlined ? "2px solid teal" : "none",
         background: variant === CardVariant.primary ? "wheat" : "none",
+        marginBottom: "20px"
       }}
     >
       {children}
